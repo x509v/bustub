@@ -67,11 +67,9 @@ auto CountMinSketch<KeyType>::operator=(CountMinSketch &&other) noexcept -> Coun
 
 template <typename KeyType>
 void CountMinSketch<KeyType>::Insert(const KeyType &item) {
-  // mutex_.lock();
   for (size_t i = 0; i < depth_; i++) {
     buckets[i][hash_functions_[i](item) % width_].fetch_add(1, std::memory_order_relaxed);
   }
-  // mutex_.unlock();
 }
 
 template <typename KeyType>
@@ -85,7 +83,6 @@ void CountMinSketch<KeyType>::Merge(const CountMinSketch<KeyType> &other) {
         std::memory_order_relaxed);
     }
   }
-  /** @TODO(student) Implement this function! */
 }
 
 template <typename KeyType>
@@ -103,7 +100,6 @@ auto CountMinSketch<KeyType>::Count(const KeyType &item) const -> uint32_t {
 
 template <typename KeyType>
 void CountMinSketch<KeyType>::Clear() {
-  /** @TODO(student) Implement this function! */
   for (size_t i = 0; i < depth_; i++) {
     for (size_t j = 0; j < width_; j++) {
       buckets[i][j].store(0, std::memory_order_relaxed);
@@ -114,7 +110,6 @@ void CountMinSketch<KeyType>::Clear() {
 template <typename KeyType>
 auto CountMinSketch<KeyType>::TopK(uint16_t k, const std::vector<KeyType> &candidates)
     -> std::vector<std::pair<KeyType, uint32_t>> {
-  /** @TODO(student) Implement this function! */
   using Pair = std::pair<KeyType, uint32_t>;
   if (k == 0 || candidates.empty()) {
     return {};

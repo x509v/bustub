@@ -104,7 +104,7 @@ class CountMinSketch {
     };
   }
 
-  /** @todo (student) can add their data structures that support count-min sketch operations */
+
 };
 
 }  // namespace bustub
